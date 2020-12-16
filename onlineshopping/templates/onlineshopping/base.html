@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <script src="{% static 'onlineshopping/base.js' %}" type="text/javascript"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- font awesome icons -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link href="{% static 'onlineshopping/base.css' %}" rel="stylesheet" type="text/css">
+        <title> {% block title %} Onlineshopping {% endblock %} </title>
+    </head>
+    <body style='background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2044837-jpeg.jpg");'>
+        
+        <!-- header -->
+        <div class="jumbotron" style="margin:0px;">
+            <div class="container text-center">
+            <h1 style="font-size:3.5em;">DOVEMARKET <i class="fas fa-dove"></i></h1> 
+            </div>
+        </div>
+
+        <!-- <navigation bar -->
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav mr-auto">
+                <li><a class = "nav-link" href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> HOME</a></li>
+                <li><a class = "nav-link" href="{% url 'sell' %}"><i class="fa fa-edit" aria-hidden="true"></i> SELL</a></li>
+                <li><a class = "nav-link" href="{% url 'searchproduct' %}"><i class="fa fa-search" aria-hidden="true"></i> SEARCH PRODUCT</a></li>
+
+                <!-- Shopping Cart -->
+                <li><a class = "nav-link" href="{% url 'shoppingCart' %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> SHOPPING CART</a></li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                <!-- Personal profile page -->
+                    <li><a class = "nav-link" href="{% url 'account' %}"><i class="fas fa-user-check"></i> {{request.user.first_name}}</a></li>
+                    <li><a class = "nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> LOG OUT</a></li>
+                {% else %}
+                    <li><a class = "nav-link" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> LOG IN</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <br>
+        
+        <div class="page-title">
+            {% block page-title %}
+            {% endblock %}
+        </div>
+
+        <div class="user-info">
+            {% block user-info %}
+            {% endblock %}
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    {% block jsscript %}
+    {% endblock %}
+    </body>
+</html>

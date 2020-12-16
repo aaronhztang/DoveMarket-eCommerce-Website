@@ -1,0 +1,63 @@
+{% extends "onlineshopping/base.html" %}
+
+{% block content %}
+    {% load static %}
+    <p class="error"></p>
+
+    {% if items_in_Cart %}
+        <div class="container">
+            <div class="row">
+                {% for item in items_in_Cart %}
+                    <div class="col" id="item_{{item.id}}">
+                        <div class="card bg-light" style="width:475px">
+                            {% if item.product.product_photo %}
+                            <img src="{% url 'photo' item.product.id %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+                            {% else %}
+                            <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+                            {% endif %}
+                
+                            <div class="card-body">
+                                <h4 class="card-title">{{item.product.product_name}}</h4>
+                                <p class="card-text">Unit Price: {{item.product.price}}</p>
+                                <div class="input-group mb-3">
+                                    <label for="sel1">Quantity: &nbsp;&nbsp; </label>
+                                    <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" onclick="minusQuantity('{{item.id}}')" type="button">-</button>
+                                    </div>
+                                    <input class="w-25" type="number" id="quantity_{{item.id}}" value="{{item.saved_quantity}}" readonly>
+                                    <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" onclick="plusQuantity('{{item.id}}')" type="button">+</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="checkbox mb-3">
+                                    <label>
+                                    <input type="checkbox" class="item_checkbox" id="item_checkbox_{{item.id}}"> CHOOSE
+                                    </label>
+                                </div>
+
+                                {% for error in cart_item_errors %}
+                                    <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-around">
+                <input type="button" class="btn btn-lg btn-warning" onclick="DeleteCartItems()" value="DELETE">
+                <input type="button" class="btn btn-lg btn-success" onclick="BuyCartItems()" value="BUY">
+            </div>
+            <br><br>
+        </div>
+    {% else %}
+        <h2 style="font-style: italic; text-align: center; color:black;background-color:wheat;border-radius:10px">There is no item in the cart. Choose something you like :)</h2>
+    {% endif %}
+
+
+{% endblock %}
+
+<script>
+    window.onload = shoppingCart;
+</script>

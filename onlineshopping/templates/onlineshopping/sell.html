@@ -1,0 +1,43 @@
+{% extends "onlineshopping/base.html" %}
+
+{% block content %}
+<!-- <div style='height: 2000px; background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2044837-jpeg.jpg");'> -->
+<div class="container">
+    {% for error in form.non_field_errors %}
+    <div class="container">
+          <div class="alert alert-danger" role="alert">
+            <p style="font-size:25px">{{error}}</p>
+          </div>
+        </div>
+    {% endfor %}
+
+    {% for m in message %}
+        <div class="alert alert-success" role="alert">
+          <p>{{m}}</p>
+        </div>
+    {% endfor %}
+
+    <div class="row justify-content-center">
+        <div class="col-auto" style="border-radius: 25px;background-color: wheat">
+            <h1 style="color:darkorange">SELL IT & GET YOUR MONEY! <i class="fas fa-coins"></i></h1>
+            <form enctype="multipart/form-data" method="post" action="{% url 'sell' %}">
+                {% csrf_token %}
+                <table class="table" style="border-radius: 25px;font-size:20px;color:white;background-color:orange">
+                    {% for field in form.visible_fields %}
+                        <tr scope="row">
+                            <td >{{field.label_tag}}</td>
+                            <td >{{field}}</td>
+                            <td class="error">
+                                {% for error in field.errors %} {{error}} {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

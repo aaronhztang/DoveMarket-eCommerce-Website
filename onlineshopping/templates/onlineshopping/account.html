@@ -1,0 +1,215 @@
+{% extends "onlineshopping/base.html" %}
+
+{% block page-title %} {% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="row justify-content-center">
+        <div class="col-auto" style="border-radius: 25px;background-color: wheat">
+        <h1 style="color:darkorange">About Yourself <i class="fas fa-address-card"></i></h1>
+        <table class="table table-sm" style="border-radius:25px;font-size:20px;color:white;background-color:orange">
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">First Name: </td>
+                <td>{{profile.first_name}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Last Name: </td>
+                <td>{{profile.last_name}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Email: </td>
+                <td>{{profile.email}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Contact Number: </td>
+                <td>{{profile.phone}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Address: </td>
+                <td>{{profile.address}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">City: </td>
+                <td>{{profile.city}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">State: </td>
+                <td>{{profile.state}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Zip: </td>
+                <td>{{profile.zip_code}}</td>
+            </tr>
+            <tr scope="row">
+                <td style="font-weight:bold;font-style:italic;">Country: </td>
+                <td>{{profile.country}}</td>
+            </tr>
+        </table>
+        <a class="btn btn-primary" style="font-size: 20px" href="{% url 'edit_profile' %}">EDIT</a>
+        <br><br>
+    </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <h1 style="color:white;background-color:pink;border-radius:10px">YOUR PRODUCTS <i class="fas fa-gifts"></i></h1>
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo1{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo1{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+        <br><br><br>
+        <div id="demo1{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo1{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in rangeSell %}
+                   <li data-target="#demo1{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+                {% endfor %}
+            </ul>
+
+            <div class="container carousel-inner no-padding">
+
+                <div class="carousel-item active">
+
+                    {% for i in product %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card bg-light" style="border-radius: 25px;width: 16rem;">
+                            {% if i.product_photo %}
+                                <img src="{% url 'photo' i.id %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% else %}
+                            <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{i.product_name}}</h5>
+                                <p class="card-text">Price: {{i.price}}</p>
+                                <p class="card-text">Available Quantity: {{i.available_quantity}}</p>
+                                <a class="btn btn-primary" href="{% url 'delete_product' i.id %}">DELETE</a>
+			    </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="carousel-item">
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <div class="container">
+        <h1 style="color:white;background-color:orange;border-radius:10px">YOUR ORDERS <i class="fas fa-shopping-bag"></i></h1>
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo2{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo2{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+        <br><br><br>
+        <div id="demo2{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo2{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in rangeBuy %}
+                   <li data-target="#demo2{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+                {% endfor %}
+            </ul>
+
+            <div class="container carousel-inner no-padding">
+
+                <div class="carousel-item active">
+
+                    {% for i in order %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card bg-light" style="width: 16rem;">
+                            {% if i.product.product_photo %}
+                                <img src="{% url 'photo' i.product.id %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% else %}
+                                <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{i.product.product_name}}</h5>
+                                <p class="card-text">Status: {{i.get_status_display}}</p>
+                                <p class="card-text">Quantity: {{i.ordered_quantity}}</p>
+                                <p class="card-text">Time: {{i.create_time}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="carousel-item">
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <div class="container">
+        <h1 style="color:white;background-color:grey;border-radius:10px">YOUR SOLD <i class="fas fa-shipping-fast"></i></h1>
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo3{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo3{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+        <br><br><br>
+        <div id="demo3{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo3{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in rangeSold %}
+                   <li data-target="#demo3{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+                {% endfor %}
+            </ul>
+
+            <div class="container carousel-inner no-padding">
+
+                <div class="carousel-item active">
+
+                    {% for i in sold %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card bg-light" style="width: 16rem;">
+                            {% if i.product.product_photo %}
+                                <img src="{% url 'photo' i.product.id %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% else %}
+                                <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width:100%">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{i.product.product_name}}</h5>
+                                <p class="card-text">Buyer: {{i.buyer.username}}</p>
+                                <p class="card-text">Contact: {{i.buyer.profile.email}}</p>
+                                <p class="card-text">Address: {{i.buyer.profile.address}},{{i.buyer.profile.city}},{{i.buyer.profile.state}},{{i.buyer.profile.zip_code}},{{i.buyer.profile.country}}</p>
+                                <p class="card-text">Status: {{i.get_status_display}}</p>
+                                <p class="card-text">Quantity: {{i.ordered_quantity}}</p>
+                                <p class="card-text">Time: {{i.create_time}}</p>
+                                {% ifnotequal i.status 'S' %}
+                                    <a class="btn btn-primary" href="{% url 'product_shipped' i.id %}">SHIPPED</a>
+                                {% else %}
+                                    <a class="btn btn-primary" href="{% url 'product_unship' i.id %}">UNSHIP</a>
+                                {% endifnotequal %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="carousel-item">
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br><br><br>
+
+{% endblock %}

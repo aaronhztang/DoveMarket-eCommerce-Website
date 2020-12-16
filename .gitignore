@@ -1,0 +1,28 @@
+# Mac OS data store file
+.DS_Store
+
+# Django's SQL Lite Database File
+db.sqlite3
+
+# python binary files
+*.pyc
+
+# migration files
+migrations
+
+# json files
+*.json
+
+# pictures
+*.jpeg
+*.jpg
+*.png
+image
+
+# config secret file
+config.ini
+
+.vscode/settings.json
+
+# key pair 
+*.pem

@@ -1,0 +1,122 @@
+{% extends "onlineshopping/base.html" %}
+ 
+ 
+{% block content %}
+    {% load static %}
+    <!-- Search bar  -->
+    <div class="container" style="border-radius: 15px;background-color: wheat">
+        <form action="{% url 'searchproduct' %}" method="post">
+            <div class="form-inline h5 font-weight-bold">
+              <!-- keyword text input -->
+              <div class="form-group has-search">
+                <label>KEYWORDS:</label>
+                &nbsp; &nbsp;
+                <input type="text" class="form-control" name="product_name" placeholder="Search Keywords">
+              </div>
+              &nbsp; &nbsp; &nbsp;
+              <!-- dropdown menu select for time range -->
+              <div class="form-group">
+                <label>TIME RANGE:</label>
+                &nbsp; &nbsp;
+                <select class="form-control" name="time_range">
+                  <option value="last day">Last Day</option>
+                  <option value="last week">Last 7 Days</option>
+                  <option value="last month">Last Month</option>
+                  <option value="all" selected>All Time</option>
+                </select>
+              </div>
+              &nbsp; &nbsp; &nbsp;
+              <!-- price range -->
+              <div class="form-group">
+                <label>PRICE LIMIT:</label>
+                &nbsp; &nbsp;
+                <input type="range" name="price_range" min="{{min_price}}" max="{{max_price}}" id="myRange" value="{{default}}">
+                &nbsp;
+                <span id="demo"></span>
+              </div>
+              &nbsp; &nbsp; &nbsp;
+              <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {% csrf_token %}
+        </form>
+        {% for error in errors %}
+            <p>
+              {{error}}
+            </p>
+        {% endfor %}
+    </div>
+    <br><br>
+    <div class="container">
+      {% for m in message %}
+        <div class="alert alert-success" role="alert">
+          <p>{{m}}</p>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Products List -->
+    <div class="container">
+      <div class="row">
+        {% for product in products %}
+        <div class="col">
+          <div class="card bg-light" style="width:475px">
+            {% if product.product_photo %}
+              <img src="{% url 'photo' product.id %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+            {% else %}
+              <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+            {% endif %}
+            
+            <div class="card-body">
+              <h4 class="card-title">{{product.product_name}}</h4>
+              <p class="card-text">Description: {{product.description}}</p>
+              <p class="card-text">Price: {{product.price}}</p>
+              <p class="card-text">Available Quantity: {{product.available_quantity}}</p>
+                <form action="{% url 'add_product' product.id%}" method="post" class="card-text">
+                  <p class="card-text">
+                    <div class="form-group row">
+                      <label for="quantity-input" class="col-sm-5 col-form-label">Quantity:</label>
+                      <div class="col-sm-5">
+                        <input type="number" class="form-control" id = "quantity-input" name="product_quantity" min="1" max="{{product.available_quantity}}" required>
+                      </div>
+                    </div>
+                  </p>
+                  <p class="card-text">
+                    <div class="form-group row">
+                      &nbsp; &nbsp;
+                      <button type="submit" class="btn btn-outline-primary" name="cart_search">ADD TO CART</button>
+                      &nbsp; &nbsp;
+                      <button type="submit" class="btn btn-outline-success" name="buy">BUY</button>
+                    </div>
+                  </p>
+                {% csrf_token %}
+                </form>
+              {% for error in card_errors %}
+                <p>{{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+        </div>
+          
+        {% endfor %}
+        {% if Info %}
+        <div class="container">
+          <div class="alert alert-danger" role="alert">
+            <p style="font-size:25px">{{Info}}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <script>
+      var slider = document.getElementById("myRange");
+      var output = document.getElementById("demo");
+      output.innerHTML = slider.value;
+      
+      slider.oninput = function() {
+        output.innerHTML = this.value;
+      }
+    </script>
+      
+{% endblock %}
+

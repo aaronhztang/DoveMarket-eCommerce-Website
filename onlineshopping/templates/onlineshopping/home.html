@@ -1,0 +1,42 @@
+{% extends "onlineshopping/base.html" %}
+
+
+{% block content %}
+{% load static %}
+    <div class="container">
+      {% for m in message %}
+        <div class="alert alert-success" role="alert">
+          <p>{{m}}</p>
+        </div>
+      {% endfor %}
+      <div>
+        <h1 style="color:white;background-color:pink;border-radius:10px">TRENDING PRODUCTS <i class="fas fa-fire"></i></h1>
+        
+        <div>
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#best-selling" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#best-selling" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+        <br><br><br>
+        <div id="best-selling" class="carousel slide carousel-multi-item" data-ride="carousel">
+          <!-- carousel -->
+          <div id = "best-selling-items" class="caraousel-inner" role="listbox">
+              <!-- populate by JS -->
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+{% endblock %}
+
+
+{% block jsscript %}
+   <script>
+     window.onload = getHomeProducts;
+   </script>
+{% endblock %}

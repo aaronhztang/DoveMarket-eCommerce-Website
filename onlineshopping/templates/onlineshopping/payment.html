@@ -1,0 +1,46 @@
+{% extends "onlineshopping/base.html" %}
+
+{% block page-title %}
+    <h1 style="text-align: center;color:white;background-color:grey;border-radius:10px">PAYMENT</h1>
+{% endblock %}
+
+
+{% block content %}
+    {% load static %}
+    <p class="error"></p>
+
+    <div class="container">
+	{% for m in message %}
+        <div class="alert alert-danger" role="alert">
+          <p>{{m}}</p>
+        </div>
+        {% endfor %}
+        <div class="row">
+            {% for item in items_to_buy %}
+                <div class="col" id="item_{{item.id}}">
+                    <div class="card bg-light" style="width:475px">
+                        {% if item.product.product_photo %}
+                        <img src="{% url 'photo' item.product.id %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+                        {% else %}
+                        <img src= "{% static 'onlineshopping/no-image-found.png' %}" alt="Card image" style="border-radius: 25px;width: 475px;height: 475px">
+                        {% endif %}
+              
+                        <div class="card-body">
+                            <h4 class="card-title">{{item.product.product_name}}</h4>
+                            <p class="card-text">Unit Price: {{item.product.price}}</p>
+                            <p class="card-text">Quantity: {{item.ordered_quantity }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id='total_price' style="float: right; padding: 60px;">
+        <h3>TOTAL PRICE: {{amount}}</h3>
+        <br>
+        {{ form.render }}
+    </div>
+    
+
+{% endblock %}

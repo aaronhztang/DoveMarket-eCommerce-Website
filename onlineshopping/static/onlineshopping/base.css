@@ -1,0 +1,149 @@
+html, body { 
+    height: 100%; width: 100%; margin:0;
+}
+
+.jumbotron {
+  height:20%;
+}
+
+.error {
+    font-size: larger;
+    color: red;
+}
+
+.page-title {
+    font-size: large;
+    font: bold;
+}
+
+.plus-minus-input {
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+.plus-minus-input .input-group-field {
+  text-align: center;
+  /* margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 1rem; */
+}
+
+.plus-minus-input .input-group-field::-webkit-inner-spin-button,
+.plus-minus-input .input-group-field ::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.plus-minus-input .input-group-button .circle {
+  border-radius: 10%;
+  /* padding: 0.25em 0.8em; */
+}
+
+.col-md-3 {
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.col-md-3 {
+    width: 100%;
+    height: auto;
+}
+
+.col-md-3 img {
+    width: 255px;
+    height: 255px;
+}
+
+body .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+body .carousel-indicators{
+    bottom: 0;
+}
+
+body .carousel-indicators li{
+    background-color: wheat;
+}
+
+.carousel-indicators .active{
+    background-color: wheat;
+}
+
+.carousel-control-prev-icon {
+    height: 50px;
+    width: 50px;
+    background: black no-repeat center center;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: wheat;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+    height: 50px;
+    width: 50px;
+    background: black no-repeat center center;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: wheat;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    top: auto;
+    bottom: auto;
+}
+
+.card {
+    border-radius: 25px;
+}
+
+.card-title {
+    font-family:'Montserrat', sans-serif;
+    font-size:25px;
+    color:black;
+}
+
+.card-text {
+    font-family:'Montserrat', sans-serif;
+    font-size:15px;
+    color:black;
+}
+
+h1 {
+    font-family:'Montserrat', sans-serif;
+}
+
+table {
+    font-family:'Montserrat', sans-serif;
+}
+
+button {
+    font-family:'Montserrat', sans-serif;
+}
+
+label {
+    font-family:'Montserrat', sans-serif;
+}
+
+a {
+    font-family:'Montserrat', sans-serif;
+}
+
+div {
+    font-family:'Montserrat', sans-serif;
+}
+
+p {
+    font-family:'Montserrat', sans-serif;
+}
+
+.error {
+    font-family:'Montserrat', sans-serif;
+}
