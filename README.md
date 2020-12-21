@@ -1,6 +1,8 @@
 Web url: 
 [ec2-3-139-73-71.us-east-2.compute.amazonaws.com](http://ec2-3-139-73-71.us-east-2.compute.amazonaws.com)
 
+Collaborators: Wenqin Dong, Lan Hu
+
 Commands to run project:
 
 python3 manage.py makemigrations onlineshopping
